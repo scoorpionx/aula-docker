@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  express:
+    ports:
+      - 3333:3333
+    build:
+      context: ./express-app
+      dockerfile: Dockerfile
+    volumes:
+      - ./express-app:/usr/app
+      - /usr/app/node_modules
+    env_file:
+      - .env
+
+  next:
+    ports:
+      - 3000:3000
+    build:
+      context: ./nextapp
+      dockerfile: Dockerfile
+    volumes:
+      - ./nextapp:/usr/app
+      - /usr/app/node_modules
+      - /usr/app/.next
+    env_file:
+      - .env
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senha
+      POSTGRES_DB: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
