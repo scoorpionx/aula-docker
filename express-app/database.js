@@ -1,6 +1,12 @@
 const knex = require("knex")({
   client: "pg",
-  connection: process.env.PG_CONNECTION_STRING,
+  connection: {
+    host: "192.168.1.64",
+    port: 3330,
+    database: "postgres",
+    user: "postgres",
+    password: "senha",
+  },
 });
 
 module.exports = knex;
